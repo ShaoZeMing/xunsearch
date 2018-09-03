@@ -1,12 +1,4 @@
 language: php
-sudo: enabled
-os: linux
-before_install:
-  - sudo docker run --name xunsearch -d \
-  -p 8383:8383 -p 8384:8384 \
-  -v /var/xunsearch/data:/usr/local/xunsearch/data \
-  hightman/xunsearch:latest
-
 php:
   - 7.1
 before_script:
