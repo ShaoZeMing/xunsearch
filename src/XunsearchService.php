@@ -1,4 +1,5 @@
 <?php
+
 namespace ShaoZeMing\Xunsearch;
 
 
@@ -12,7 +13,6 @@ class XunsearchService extends \XS implements XunsearchInterface
 {
 
 
-
     protected $flush_index = true;//立即刷新索引
     protected $set_fuzzy = true;//开启模糊搜索
     protected $auto_synonyms = true; //开启自动同义词搜索功能
@@ -23,7 +23,7 @@ class XunsearchService extends \XS implements XunsearchInterface
      */
     public function __construct($file)
     {
-        define('XS_APP_ROOT', __DIR__.'../config');
+        defined('XS_APP_ROOT') || define('XS_APP_ROOT', __DIR__ . '../config');
         parent::__construct($file);
     }
 
@@ -184,8 +184,6 @@ class XunsearchService extends \XS implements XunsearchInterface
     }
 
 
-
-
     /**
      * User: ZeMing Shao
      * Email: szm19920426@gmail.com
@@ -193,7 +191,7 @@ class XunsearchService extends \XS implements XunsearchInterface
      * @param $value
      * @return $this
      */
-    public function __set($attr,$value)
+    public function __set($attr, $value)
     {
         $this->$attr = $value;
         return $this;
