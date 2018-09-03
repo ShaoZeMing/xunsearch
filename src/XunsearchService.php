@@ -9,6 +9,7 @@ namespace ShaoZeMing\Xunsearch;
  * Email: szm19920426@gmail.com
  * @package ShaoZeMing\Xunsearch
  */
+include_once __DIR__.'/vendor/lib/XS.php';
 class XunsearchService extends \XS implements XunsearchInterface
 {
 
