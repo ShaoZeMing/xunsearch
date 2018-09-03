@@ -1,7 +1,7 @@
 # Xunsearch for PHP
 
 ---
-[![](https://travis-ci.org/ShaoZeMing/translate.svg?branch=master)](https://travis-ci.org/ShaoZeMing/translate) 
+[![](https://travis-ci.org/ShaoZeMing/xunsearch.svg?branch=master)](https://travis-ci.org/ShaoZeMing/translate) 
 [![](https://img.shields.io/packagist/v/ShaoZeMing/translate.svg)](https://packagist.org/packages/shaozeming/translate) 
 [![](https://img.shields.io/packagist/dt/ShaoZeMing/translate.svg)](https://packagist.org/packages/stichoza/shaozeming/translate)
 
@@ -17,7 +17,7 @@
 wget http://www.xunsearch.com/download/xunsearch-full-latest.tar.bz2
 tar -xjf xunsearch-full-latest.tar.bz2
 
-cd xunsearch-full-1.4.0/
+cd xunsearch-full-1.4.10/
 sh setup.sh  
 //第一次安装的话，过程可能会稍显漫长，请不必着急，您大可泡杯茶一边喝一边等待即可。
                
