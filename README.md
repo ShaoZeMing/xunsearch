@@ -83,33 +83,18 @@ index = mixed
 ```
 
 
-## Usage
-
-
-```php
-use ShaoZeMing\Xunsearch\XunsearchService;
-
-$config = include($youerpath.'/translate.php')
-
-$obj = new XunsearchService($config);
-$result = $obj->translate('你知道我对你不仅仅是喜欢');
-print_r($result);
-
-
-
-```
-
 
 Example:
 
 ```php
 // 配置文件
- $file = ../../demo.ini
-//define('XS_APP_ROOT', 'your/ini_file_path/dir/');  //可以定义配置文件目录
- 
-        $xs = new XunsearchService($file);
- 
- 
+
+        //define('XS_APP_ROOT', 'your/ini_file_path/dir/');  //可以定义配置文件目录
+        //$xs = new XunsearchService('demo');
+
+        //也可以直接传入ini文件
+       $file = your/ini_file_path/dir/demo.ini
+       $xs = new XunsearchService($file);
        $data =[
             ['id' => 1, 'email' => '928240096@qq.com', 'name' => 'Shao ZeMing 邵泽明 邵澤明', 'lesson' => '朗诵主持,Reciting Hosting,朗誦主持，','desc'=>'我是谁，我在哪儿，我要做什么，我不告诉你'],
             ['id' => 2, 'email' => '12315@qq.com', 'name' => 'Chris Dong 董胜君  董勝君', 'lesson' => '朗诵主持,Reciting Hosting,朗誦主持，演講辯論，speech debate，演讲辩论','desc'=>'如果有一天，我走了，你应该知道我去了哪儿'],
