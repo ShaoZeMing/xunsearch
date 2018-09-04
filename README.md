@@ -1,9 +1,9 @@
 # Xunsearch for PHP
 
 ---
-[![](https://travis-ci.org/ShaoZeMing/xunsearch.svg?branch=master)](https://travis-ci.org/ShaoZeMing/translate) 
-[![](https://img.shields.io/packagist/v/ShaoZeMing/translate.svg)](https://packagist.org/packages/shaozeming/translate) 
-[![](https://img.shields.io/packagist/dt/ShaoZeMing/translate.svg)](https://packagist.org/packages/stichoza/shaozeming/translate)
+[![](https://travis-ci.org/ShaoZeMing/xunsearch.svg?branch=master)](https://travis-ci.org/ShaoZeMing/xunsearch) 
+[![](https://img.shields.io/packagist/v/ShaoZeMing/xunsearch.svg)](https://packagist.org/packages/shaozeming/xunsearch) 
+[![](https://img.shields.io/packagist/dt/ShaoZeMing/xunsearch.svg)](https://packagist.org/packages/stichoza/shaozeming/xunsearch)
 
 
 ## 前置说明：
