@@ -17,6 +17,8 @@ class XunsearchService extends \XS implements XunsearchInterface
     protected $flush_index = true;//立即刷新索引
     protected $set_fuzzy = true;//开启模糊搜索
     protected $auto_synonyms = true; //开启自动同义词搜索功能
+    protected $limit = 10; //每页搜索条数
+    protected $offset = 0; //每页搜索条数
 
     /**
      * XunsearchService constructor.
@@ -59,7 +61,7 @@ class XunsearchService extends \XS implements XunsearchInterface
         $search->setQuery($string);
         // get the result
         $search_begin = microtime(true);
-        $doc = $search->search();
+        $doc = $search->setLimit($this->limit,$this->offset)->search();
         $search_cost = microtime(true) - $search_begin;
 
         // get other result
