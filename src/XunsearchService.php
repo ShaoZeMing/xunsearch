@@ -9,16 +9,18 @@ namespace ShaoZeMing\Xunsearch;
  * Email: szm19920426@gmail.com
  * @package ShaoZeMing\Xunsearch
  */
-include_once __DIR__.'/vendor/lib/XS.php';
+include_once __DIR__ . '/vendor/lib/XS.php';
+
 class XunsearchService extends \XS implements XunsearchInterface
 {
 
-
     protected $flush_index = true;//立即刷新索引
-    protected $set_fuzzy = true;//开启模糊搜索
+    protected $fuzzy = true;//开启模糊搜索
     protected $auto_synonyms = true; //开启自动同义词搜索功能
     protected $limit = 10; //每页搜索条数
     protected $offset = 0; //每页搜索条数
+    protected $sort_field = null; //排序字段
+    protected $sort_state = false; //排序规则:false 倒叙，true 正序
 
     /**
      * XunsearchService constructor.
@@ -52,16 +54,21 @@ class XunsearchService extends \XS implements XunsearchInterface
         $hot = $search->getHotQuery();
 
         // fuzzy search 模糊搜索
-        $search->setFuzzy($this->set_fuzzy);
+        $search->setFuzzy($this->fuzzy);
 
         // synonym search
         $search->setAutoSynonyms($this->auto_synonyms);
 
         // set query
         $search->setQuery($string);
+
+
+        if($this->sort_field){
+            $search->setSort($this->sort_field,$this->sort_state);
+        }
         // get the result
         $search_begin = microtime(true);
-        $doc = $search->setLimit($this->limit,$this->offset)->search();
+        $doc = $search->setLimit($this->limit, $this->offset)->search();
         $search_cost = microtime(true) - $search_begin;
 
         // get other result
@@ -184,6 +191,64 @@ class XunsearchService extends \XS implements XunsearchInterface
 
         return $this->getIndex()->clean();
 
+    }
+
+
+    /**
+     * User: ZeMing Shao
+     * Email: szm19920426@gmail.com
+     * @param int $limit
+     * @param int $offset
+     * @return $this
+     */
+    public function setLimit($limit = 10, $offset = 0)
+    {
+
+        $this->limit = $limit;
+        $this->offset = $offset;
+
+        return $this;
+    }
+
+    /**
+     * 模糊搜索
+     * User: ZeMing Shao
+     * Email: szm19920426@gmail.com
+     * @param bool $state
+     * @return $this
+     */
+    public function setFuzzy($state = true)
+    {
+        $this->fuzzy = $state;
+        return $this;
+    }
+
+    /**
+     * 自动匹配同义词
+     * User: ZeMing Shao
+     * Email: szm19920426@gmail.com
+     * @param bool $state
+     * @return $this
+     */
+    public function setAutoSynonyms($state = true)
+    {
+        $this->auto_synonyms = $state;
+        return $this;
+    }
+
+    /**
+     * 排序
+     * User: ZeMing Shao
+     * Email: szm19920426@gmail.com
+     * @param $field
+     * @param bool $sort
+     * @return $this
+     */
+    public function setSort($field,$sort = false)
+    {
+        $this->sort_field = $field;
+        $this->sort_state = $sort;
+        return $this;
     }
 
 

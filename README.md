@@ -87,7 +87,6 @@ index = mixed
 Example:
 
 ```php
-// 配置文件
 
         //define('XS_APP_ROOT', 'your/ini_file_path/dir/');  //可以定义配置文件目录
         //$xs = new XunsearchService('demo');
