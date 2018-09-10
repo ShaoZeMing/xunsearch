@@ -75,11 +75,6 @@ class XunsearchService extends \XS implements XunsearchInterface
         $count = $search->getLastCount();    //最近一次搜索结果数
         $total = $search->getDbTotal();      //数据库总数
 
-//            $corrected = $this->getSearch()->getCorrectedQuery();      //模糊词搜索
-//            if (count($doc) < 10) {
-//                foreach ($corrected as $v) {
-//                    $doc = array_merge($doc, $this->getSearch()->search($v));
-//                }
 
         // try to corrected, if resul too few
         if ($count < 1 || $count < ceil(0.001 * $total)) {
