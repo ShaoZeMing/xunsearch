@@ -57,30 +57,63 @@ $ composer require shaozeming/xunsearch -v
 
 ### configuration 
 
+```php
+// config/xunsearch.php
+
+   
+    'default' => 'teacher',   //默认搜索库
+
+    'databases' => [
+
+//        老师搜索库
+        'teacher' => [
+            'project.name' => 'teacher',
+            'project.default_charset' => 'utf-8',
+            'server.index' => '127.0.0.1:8383',
+            'server.search' => '127.0.0.1:8384',
+            'id' => [
+                'type' => 'id',
+            ],
+            'email' => [
+                'index' => 'mixed',
+            ],
+            'name' => [
+                'index' => 'mixed',
+            ],
+            'desc' => [
+                'index' => 'mixed',
+            ],
+
+        ],
+
+
+        //学生搜索库
+        'student' => [
+            'project.name' => 'student',
+            'project.default_charset' => 'utf-8',
+            'server.index' => '127.0.0.1:8383',
+            'server.search' => '127.0.0.1:8384',
+            'id' => [
+                'type' => 'id',
+            ],
+            'email' => [
+                'index' => 'mixed',
+            ],
+            'name' => [
+                'index' => 'mixed',
+            ],
+            'desc' => [
+                'index' => 'mixed',
+            ],
+
+        ],
+
+
+//        ...
+    ],
+
 ```
-// config/demo.ini
-project.name = teachers  //名称，建议和文件同名
-project.default_charset = utf-8   //字符编码
-server.index = 127.0.0.1:8383     //xunsearch 服务器ip:端口
-server.search = 127.0.0.1:8384    //xunsearch 服务器ip:端口
 
-//字段类型配置请参考 http://www.xunsearch.com/doc/php/guide/ini.guide
-[id]
-type = id           
-
-[email]
-index = mixed
-
-[name]
-index = mixed
-
-[lesson]
-index = mixed
-
-[desc]
-index = mixed
-
-```
 
 
 
@@ -88,12 +121,10 @@ Example:
 
 ```php
 
-        //define('XS_APP_ROOT', 'your/ini_file_path/dir/');  //可以定义配置文件目录
-        //$xs = new XunsearchService('demo');
+        define('XS_APP_ROOT', 'your/ini_file_path/dir/');  //可以定义配置文件目录
+        $xs = new XunsearchService();
 
-        //也可以直接传入ini文件
-       $file = your/ini_file_path/dir/demo.ini
-       $xs = new XunsearchService($file);
+      
        $data =[
             ['id' => 1, 'email' => '928240096@qq.com', 'name' => 'Shao ZeMing 邵泽明 邵澤明', 'lesson' => '朗诵主持,Reciting Hosting,朗誦主持，','desc'=>'我是谁，我在哪儿，我要做什么，我不告诉你'],
             ['id' => 2, 'email' => '12315@qq.com', 'name' => 'Chris Dong 董胜君  董勝君', 'lesson' => '朗诵主持,Reciting Hosting,朗誦主持，演講辯論，speech debate，演讲辩论','desc'=>'如果有一天，我走了，你应该知道我去了哪儿'],

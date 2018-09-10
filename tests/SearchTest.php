@@ -12,8 +12,8 @@ class SearchTest extends TestCase
     public function setUp()
     {
 
-        $file = dirname(__DIR__) . '/config/demo.ini';
-        $this->instance = new XunsearchService($file);
+
+        $this->instance = new XunsearchService();
     }
 
 
@@ -32,7 +32,8 @@ class SearchTest extends TestCase
 //            print_r($data);
 
 //            $result =  $this->instance->addIndex($data);
-            $result = $this->instance->search('泽明邵');
+//            $result = $this->instance->set->search('泽明邵');
+            $result = $this->instance->setDatabase('student')->search('shao');
 //            $result =  $this->instance->delIndex('3');
 //            $result =  $this->instance->cleanIndex();
 

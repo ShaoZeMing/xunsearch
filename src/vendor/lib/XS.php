@@ -300,19 +300,21 @@ class XS extends XSComponent
     private $_search;
     private $_scws;
     private $_scheme, $_bindScheme;
-    private $_config;
-    private static $_lastXS;
+    protected $_config;
+    protected static $_lastXS;
 
     public function __construct($file)
     {
-        if (strlen($file) < 255 && !is_file($file)) {
-            $appRoot = getenv('XS_APP_ROOT');
-            if ($appRoot === false) {
-                $appRoot = defined('XS_APP_ROOT') ? XS_APP_ROOT : XS_LIB_ROOT . '/../app';
-            }
-            $file2 = $appRoot . '/' . $file . '.ini';
-            if (is_file($file2)) {
-                $file = $file2;
+        if(!is_array($file)){
+            if (strlen($file) < 255 && !is_file($file)) {
+                $appRoot = getenv('XS_APP_ROOT');
+                if ($appRoot === false) {
+                    $appRoot = defined('XS_APP_ROOT') ? XS_APP_ROOT : XS_LIB_ROOT . '/../app';
+                }
+                $file2 = $appRoot . '/' . $file . '.ini';
+                if (is_file($file2)) {
+                    $file = $file2;
+                }
             }
         }
         $this->loadIniFile($file);
@@ -537,11 +539,14 @@ class XS extends XSComponent
         return $ret;
     }
 
-    private function loadIniFile($file)
+    protected function loadIniFile($file)
     {
         $cache = false;
         $cache_write = '';
-        if (strlen($file) < 255 && file_exists($file)) {
+        if (is_array($file)) {
+            $data = $file;
+            $file = substr(md5(json_encode($file)), 8, 8) . '.ini';
+        } else if (!is_array($file) && strlen($file) < 255 && file_exists($file)) {
             $cache_key = md5(__CLASS__ . '::ini::' . realpath($file));
             if (function_exists('apc_fetch')) {
                 $cache = apc_fetch($cache_key);
@@ -560,11 +565,16 @@ class XS extends XSComponent
                 return;
             }
             $data = file_get_contents($file);
-        } else {
+        }else{
             $data = $file;
             $file = substr(md5($file), 8, 8) . '.ini';
         }
-        $this->_config = $this->parseIniData($data);
+        if(is_array($data)){
+            $this->_config = $data;
+        }else{
+            $this->_config = $this->parseIniData($data);
+        }
+
         if ($this->_config === false) {
             throw new XSException('Failed to parse project config file/string: \'' . substr($file, 0, 10) . '...\'');
         }

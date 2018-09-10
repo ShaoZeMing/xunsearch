@@ -21,15 +21,32 @@ class XunsearchService extends \XS implements XunsearchInterface
     protected $offset = 0; //每页搜索条数
     protected $sort_field = null; //排序字段
     protected $sort_state = false; //排序规则:false 倒叙，true 正序
+    protected $database = null; //连接服务器
 
     /**
      * XunsearchService constructor.
-     * @param $file
+     * @throws \Exception
      */
-    public function __construct($file)
+    public function __construct()
     {
-        defined('XS_APP_ROOT') || define('XS_APP_ROOT', __DIR__ . '../config');
-        parent::__construct($file);
+        defined('XS_APP_ROOT') || define('XS_APP_ROOT', dirname(__DIR__) . '/config');
+
+
+        $file = XS_APP_ROOT.'/xunsearch.php';
+        if(!file_exists($file)){
+            throw new \Exception('配置文件'.$file.'不存在');
+        }
+        $config = include $file;
+
+        if(!isset($config['default'])){
+            throw new \Exception('配置文件'.$file.'缺少default配置');
+        }
+        $this->database = $config['default'];
+
+        $config = $config['databases'][$config['default']];
+
+        parent::__construct($config);
+
     }
 
 
@@ -74,6 +91,7 @@ class XunsearchService extends \XS implements XunsearchInterface
         // get other result
         $count = $search->getLastCount();    //最近一次搜索结果数
         $total = $search->getDbTotal();      //数据库总数
+
 
 
         // try to corrected, if resul too few
@@ -246,6 +264,50 @@ class XunsearchService extends \XS implements XunsearchInterface
         return $this;
     }
 
+
+    /**
+     * 设置配置
+     * User: ZeMing Shao
+     * Email: szm19920426@gmail.com
+     * @param array $config
+     * @return $this
+     * @throws \XSException
+     */
+    public function setConfig(array $config)
+    {
+
+        $this->loadIniFile($config);
+        self::$_lastXS = $this;
+        return $this;
+    }
+
+
+    /**
+     * 设置bug
+     * User: ZeMing Shao
+     * Email: szm19920426@gmail.com
+     * @param $database
+     * @return XunsearchService
+     * @throws \XSException
+     */
+    public function setDatabase($database){
+
+        $file = XS_APP_ROOT.'/xunsearch.php';
+        if(!file_exists($file)){
+            throw new \Exception('配置文件'.$file.'不存在');
+        }
+        $config = include $file;
+        if(!isset($config['databases'][$database])){
+            throw new \Exception('配置文件'.$file.'缺少这个'.$database.'配置');
+        }
+
+        $this->database = $database;
+
+        $config = $config['databases'][$database];
+
+        return $this->setConfig($config);
+
+    }
 
     /**
      * User: ZeMing Shao
