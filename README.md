@@ -10,7 +10,7 @@
 
 ### 请先安装xunsearch 服务端：
 
-- 普通编译安装
+- 普通编译安装(推荐)
 
 ```
 
@@ -57,6 +57,8 @@ $ composer require shaozeming/xunsearch -v
 
 ### configuration 
 
+-  老师搜索库配置 配置结构和官方ini文件类似，只不过替换为了php 数组形式方式展示，请照着官方文档和本配置文件对比，葫芦画瓢：http://www.xunsearch.com/doc/php/guide/ini.guide
+
 ```php
 // config/xunsearch.php
 
@@ -65,7 +67,7 @@ $ composer require shaozeming/xunsearch -v
 
     'databases' => [
 
-//        老师搜索库
+//        老师搜索库配置 配置结构和官方ini文件类似，只不过替换为了php 数组形式方式展示，请照着官方文档和本配置文件对比，葫芦画瓢：http://www.xunsearch.com/doc/php/guide/ini.guide
         'teacher' => [
             'project.name' => 'teacher',
             'project.default_charset' => 'utf-8',
@@ -121,7 +123,7 @@ Example:
 
 ```php
 
-        define('XS_APP_ROOT', 'your/ini_file_path/dir/');  //可以定义配置文件目录
+        define('XS_APP_ROOT', 'your/config_file_path/dir/');  //可以定义配置文件目录
         $xs = new XunsearchService();
 
       
@@ -133,31 +135,34 @@ Example:
             ['id' => 5, 'email' => '1270912585@qq.com', 'name' => '李四，li si 李四', 'lesson' => '朗诵主持,Reciting Hosting,朗誦主持，演講辯論，speech debate，演讲辩论，国学经典,National Classics,國學經典','desc'=>'你知道我对你不静静是喜欢'],
         ];
          
-        $result =  $xs->addIndex($data);  //添加索引
-        $result = $xs->search('泽明');   //搜索
-        
+//        $result =  $xs->addIndex($data);  //添加索引
+//        $result = $xs->search('泽明');   //搜索默认索引数据库
+//        $result = $xs->setSort('id',true)->setLimit(15)->search('ming');  //搜索排序,或分页
+//        $result = $xs->setDatabase('student')->search('shao');  //搜索自定义索引数据库
+          $result = $xs->setDatabase('student')->search('shao');  //搜索自定义索引数据库
+
         //$newData=[....]
         //$result =  $xs->updateIndex($newData);  //更新单挑或多条索引
         //$result =  $xs->delIndex('3');  //删除单挑或多条索引
         //$result =  $xs->cleanIndex();   //清空索引
 
- print_r($result);
-  * @return array  返回数组结构
-            return [
-                      'doc'           => Object,      //搜索数据结果文档
-                      'hot'           => array,       //热门词汇
-                      'count'         => int,         //搜索结果统计
-                      'total'         => int,         //数据库总数据
-                      'corrected'     => array,       //搜索提示
-                      'related'       => array,       //相关搜索
-                      'search_cost'   => int,         //搜索所用时间
-                      'total_cost'    => int,         //页面所用时间
-                  ];
-          */
- 
-
- 
- /*
+        print_r($result);
+          * @return array  返回数组结构
+                    return [
+                              'doc'           => Object,      //搜索数据结果文档
+                              'hot'           => array,       //热门词汇
+                              'count'         => int,         //搜索结果统计
+                              'total'         => int,         //数据库总数据
+                              'corrected'     => array,       //搜索提示
+                              'related'       => array,       //相关搜索
+                              'search_cost'   => int,         //搜索所用时间
+                              'total_cost'    => int,         //页面所用时间
+                          ];
+                  */
+         
+        
+         
+         /*
  示例结果：
 Array
 (
