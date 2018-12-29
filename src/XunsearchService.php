@@ -127,14 +127,14 @@ class XunsearchService extends \XS implements XunsearchInterface
         if (!is_array($data)) {
             throw new \Exception('你的索引参数不是一个数组');
         }
-        if (!is_array($this->array_first($data))) {
-            // 一维数组
-            $this->getIndex()->add(new \XSDocument($data));
-        } else {
+        if (isset($data[0]) && is_array($data[0])) {
             // 多维数组
             foreach ($data as $v) {
                 $this->getIndex()->add(new \XSDocument($v));
             }
+        } else {
+            // 一维数组
+            $this->getIndex()->add(new \XSDocument($data));
         }
         //索引是否立即生效
         if ($this->flush_index) {
@@ -334,15 +334,5 @@ class XunsearchService extends \XS implements XunsearchInterface
         return $this->$attr;
     }
 
-
-
-   private function array_first(array $array)
-    {
-        if (count($array)) {
-            reset($array);
-            $array[key($array)];
-        }
-        return null;
-    }
 
 }

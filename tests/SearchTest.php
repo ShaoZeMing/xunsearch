@@ -31,9 +31,9 @@ class SearchTest extends TestCase
             $data = $this->gieData();
 //            print_r($data);
 
-//            $result =  $this->instance->addIndex($data);
-//            $result = $this->instance->set->search('泽明邵');
-            $result = $this->instance->setDatabase('student')->search('shao');
+            $result =  $this->instance->addIndex($data);
+            $result = $this->instance->search('泽明 邵');
+//            $result = $this->instance->setDatabase('student')->search('shao');
 //            $result =  $this->instance->delIndex('3');
 //            $result =  $this->instance->cleanIndex();
 
@@ -61,6 +61,8 @@ class SearchTest extends TestCase
             ['id' => 4, 'email' => 'szm19920426@qq.com', 'name' => '君莫笑 jun mo xiao 君莫笑', 'lesson' => '写作批改,writing correction,寫作批改,国学经典,National Classics,國學經典','desc'=>'哎呀，脑壳疼，脑壳疼，脑壳疼'],
             ['id' => 5, 'email' => '1270912585@qq.com', 'name' => '李四，li si 李四', 'lesson' => '朗诵主持,Reciting Hosting,朗誦主持，演講辯論，speech debate，演讲辩论，国学经典,National Classics,國學經典','desc'=>'你知道我对你不静静是喜欢'],
         ];
+
+        $data  = ['id' => 1, 'email' => '928240096@qq.com', 'name' => 'Shao ZeMing 邵泽明 邵澤明', 'lesson' => '朗诵主持,Reciting Hosting,朗誦主持，','desc'=>'我是谁，我在哪儿，我要做什么，我不告诉你'];
         return $data;
     }
 }
